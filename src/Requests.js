@@ -1,4 +1,10 @@
-const API_KEY = 'a580a922a930d745a60dca8cf3bc5f1b';
+const API = process.env.REACT_APP_API_KEY;
+const API_KEY = API.replace(/[^A-Za-z0-9]/g, '');
+if (!API_KEY) {
+  throw new Error('REACT_APP_API_KEY is not defined. Please set it in your environment variables.');
+} 
+
+
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 const requests = {
@@ -12,4 +18,6 @@ const requests = {
   fetchDocumentaries: `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=99`,
 };
 
-export default requests; 
+console.log(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=99`); 
+ 
+export default requests;
