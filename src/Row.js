@@ -3,6 +3,7 @@ import instance from "./axios.js";
 import "./Row.css";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
+import { ClipLoader, FadeLoader } from "react-spinners";
 
 function Row({ title, fetchUrl, isLargeRow }) {
   const [movies, setMovies] = useState([]);
@@ -18,7 +19,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
       setLoading(false);
       return response;
     }
-    fetchData();
+    fetchData(); 
   }, [fetchUrl]);
 
   const opts = {
@@ -48,23 +49,25 @@ function Row({ title, fetchUrl, isLargeRow }) {
           console.error("Error fetching trailer:", error);
         });
     }
-  };
+  }; 
 
   return (
     <div className="row">
       <h2>{title}</h2>
       <div className="row__posters">
         {loading ? (
-          <p>Loading...</p>
+          Array(20).fill().map((_, idx) => (  
+            <FadeLoader color={`#e50101`} loading={loading} key={idx} /> 
+          ))
         ) : (
           movies.map((movie) => (
-            <img
-              key={movie.id}
-              onClick={() => handleClick(movie)}
-              className={`row__poster ${isLargeRow && "row__poster--large"}`}
-              src={`${baseURL}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-              alt={movie.name}
-            />
+              <img
+                key={movie?.id}
+                alt={movie?.name}
+                onClick={() => handleClick(movie)}
+                className={`row__poster ${isLargeRow && "row__poster--large"}`}
+                src={`${baseURL}${isLargeRow ? movie?.poster_path : movie?.backdrop_path}`}
+              />
           ))
         )}
       </div>
