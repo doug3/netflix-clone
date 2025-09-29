@@ -3,7 +3,7 @@ import instance from "./axios.js";
 import "./Row.css";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
-import { ClipLoader, FadeLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 
 function Row({ title, fetchUrl, isLargeRow }) {
   const [movies, setMovies] = useState([]);
